@@ -1,27 +1,96 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-body{
-    background-color: #548687;
+
+body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    font-family: 'Orbitron', monospace;
     text-align: center;
+    min-height: 100vh;
+    color: #00ffff;
+    position: relative;
+    overflow-x: hidden;
 }
-.container{
+
+/* Animated background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+    animation: backgroundFloat 15s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes backgroundFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.container {
     height: 74vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
-.box{
+
+.box {
     height: 18vmin;
     width: 18vmin;
-    border-radius: 1rem ;
-    border: none;
+    border-radius: 1rem;
+    border: 2px solid #00ffff;
     font-size: 8vmin;
-    background-color: #b0413e;
-
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    color: #00ffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
-.game{
+
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.box:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 15px 30px rgba(0, 255, 255, 0.3),
+        0 0 20px rgba(0, 255, 255, 0.4);
+    border-color: #ff00ff;
+}
+
+.box:hover::before {
+    left: 100%;
+}
+
+.box:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.game {
     height: 60vmin;
     width: 60vmin;
     display: flex;
@@ -29,13 +98,180 @@ body{
     justify-content: center;
     align-items: center;
     gap: 1.5vmin;
-
+    padding: 2rem;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(26, 26, 46, 0.3));
+    border-radius: 2rem;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    backdrop-filter: blur(10px);
 }
-#reset-btn{
-    padding: 1rem;
+
+.game::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 2rem;
+    padding: 2px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
+    background-size: 300% 300%;
+    animation: borderGlow 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes borderGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+#reset-btn {
+    padding: 1rem 2rem;
     font-size: 1.25rem;
-    background-color:black ;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    background: linear-gradient(145deg, #ff0080, #ff4080);
     color: #fff;
     border: none;
-    border: radius 1rem; 
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 8px 16px rgba(255, 0, 128, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#reset-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+#reset-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 12px 24px rgba(255, 0, 128, 0.4),
+        0 0 20px rgba(255, 0, 128, 0.3);
+}
+
+#reset-btn:hover::before {
+    left: 100%;
+}
+
+#reset-btn:active {
+    transform: translateY(-1px);
+}
+
+.msg-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 46, 0.9));
+    padding: 3rem;
+    border-radius: 2rem;
+    border: 2px solid #00ffff;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.5),
+        inset 0 0 30px rgba(0, 255, 255, 0.1);
+    z-index: 1000;
+    backdrop-filter: blur(15px);
+    text-align: center;
+}
+
+#msg {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px currentColor;
+    color: #00ffff;
+}
+
+#new-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    background: linear-gradient(145deg, #00ff80, #00ffff);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 8px 16px rgba(0, 255, 128, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+#new-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+#new-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 12px 24px rgba(0, 255, 128, 0.4),
+        0 0 20px rgba(0, 255, 128, 0.3);
+}
+
+#new-btn:hover::before {
+    left: 100%;
+}
+
+#new-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        height: 60vh;
+        padding: 1rem;
+    }
+    
+    .box {
+        height: 15vmin;
+        width: 15vmin;
+        font-size: 6vmin;
+    }
+    
+    .game {
+        height: 50vmin;
+        width: 50vmin;
+        gap: 1vmin;
+        padding: 1rem;
+    }
+    
+    #msg {
+        font-size: 2rem;
+    }
+    
+    .msg-container {
+        padding: 2rem;
+        margin: 1rem;
+    }
 }
